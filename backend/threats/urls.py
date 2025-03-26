@@ -6,4 +6,5 @@ urlpatterns = [
     path('top-years/', views.top_years),
     path('top-threat-types/', views.top_threat_types),
     path('top-industries/', views.top_industries),
+    path('', views.dashboard),  
 ]

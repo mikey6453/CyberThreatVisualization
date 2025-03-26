@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cyber Threat Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    h2 {
+      margin-bottom: 1rem;
+      color: #2a2a2a;
+    }
+
+    #chart-type {
+      padding: 0.5rem;
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    #threatChart {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <h2>Cyber Threat Visualization Dashboard</h2>
+
+  <label for="chart-type">Select a chart to display:</label>
+  <select id="chart-type">
+    <option value="top-countries">Top Countries</option>
+    <option value="top-years">Top Years</option>
+    <option value="top-threat-types">Top Threat Types</option>
+    <option value="top-industries">Top Industries</option>
+  </select>
+
+  <canvas id="threatChart" width="800" height="400"></canvas>
+
+  <script>
+    const chartCtx = document.getElementById('threatChart').getContext('2d');
+    let chart;
+
+    async function fetchData(type) {
+      const response = await fetch(`/api/${type}/`);
+      const rawData = await response.json();
+      const labels = rawData.map(item => Object.values(item)[0]);
+      const data = rawData.map(item => item.count);
+      return { labels, data };
+    }
+
+    async function renderChart(type) {
+      const labelMap = {
+        "top-countries": "Number of Incidents",
+        "top-years": "Number of Incidents",
+        "top-threat-types": "Number of Incidents",
+        "top-industries": "Number of Incidents"
+      };
+
+      const { labels, data } = await fetchData(type);
+
+      if (chart) {
+        chart.destroy();
+      }
+
+      chart = new Chart(chartCtx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: labelMap[type],
+            data: data,
+            borderWidth: 1,
+            backgroundColor: "rgba(54, 162, 235, 0.6)",
+            borderColor: "rgba(54, 162, 235, 1)"
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: true }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: labelMap[type],
+                font: { size: 14 }
+              }
+            },
+            x: {
+              ticks: {
+                autoSkip: false,
+                maxRotation: 45,
+                minRotation: 0
+              }
+            }
+          }
+        }
+      });
+    }
+
+    document.getElementById('chart-type').addEventListener('change', (e) => {
+      renderChart(e.target.value);
+    });
+
+    // Initial render
+    renderChart('top-countries');
+  </script>
+</body>
+</html>
