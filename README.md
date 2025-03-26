@@ -1,4 +1,4 @@
-# CyberThreatVisualization# 🌐 Cyber Threat Visualization Dashboard
+# 🌐 Cyber Threat Visualization Dashboard
 
 This project is a data visualization dashboard built to display global cybersecurity threats from 2015 to 2024. It allows users to dynamically view different charts—such as top threat types, affected industries, attack trends by year, and top impacted countries—based on a dropdown menu selection.
 
@@ -33,7 +33,7 @@ Below is a preview of the dashboard in action:
 
 ---
 
-## 📦 Setup Instructions (Optional)
+## 📦 Setup Instructions
 
 If you'd like to run this locally with Docker:
 
