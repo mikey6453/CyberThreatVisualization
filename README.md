@@ -29,7 +29,7 @@ Credit: Atharva Soundankar
 
 Below is a preview of the dashboard in action:
 
-![Cyber Threat Visualization Dashboard](Screenshot%202025-03-26%20010448.png)
+![Cyber Threat Visualization Dashboard][Screenshot 2025-03-26 010448](https://github.com/user-attachments/assets/5246b8d1-fb26-4e0c-a6e6-cb4af68b65e7)
 
 ---
 
